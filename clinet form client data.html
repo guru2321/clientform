@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Project Intake Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .page-content {
+            display: none;
+        }
+        .page-content.active {
+            display: block;
+            animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .nav-link.active {
+            background-color: #f1f5f9;
+            color: #2563eb;
+            font-weight: 700;
+            border-left: 4px solid #2563eb;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-screen text-slate-900">
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-50 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span class="text-white font-black text-xs">P</span>
+            </div>
+            <h1 class="font-bold text-slate-800">Project Portal</h1>
+        </div>
+        <button id="mobileMenuBtn" class="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:relative lg:flex w-72 bg-white border-r border-slate-200 transition-transform duration-300 ease-in-out z-40 h-screen overflow-y-auto">
+            <div class="p-8 w-full">
+                <div class="mb-10 hidden lg:block">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+                            <span class="text-white font-black text-lg">P</span>
+                        </div>
+                        <h1 class="text-xl font-black text-slate-800 tracking-tight leading-none">Project Portal</h1>
+                    </div>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-bold">Intake & Strategy System</p>
+                </div>
+                
+                <nav class="space-y-1">
+                    <button onclick="navigateTo('brand')" class="nav-link active w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="brand">
+                        <span class="mr-2 opacity-50 font-bold">01</span> Brand Identity
+                    </button>
+                    <button onclick="navigateTo('audience')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="audience">
+                        <span class="mr-2 opacity-50 font-bold">02</span> Audience & Market
+                    </button>
+                    <button onclick="navigateTo('strategy')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="strategy">
+                        <span class="mr-2 opacity-50 font-bold">03</span> Strategy & Goals
+                    </button>
+                    <button onclick="navigateTo('scope')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="scope">
+                        <span class="mr-2 opacity-50 font-bold">04</span> Detailed Scope
+                    </button>
+                    <button onclick="navigateTo('tech')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="tech">
+                        <span class="mr-2 opacity-50 font-bold">05</span> Technical Setup
+                    </button>
+                    <button onclick="navigateTo('design')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="design">
+                        <span class="mr-2 opacity-50 font-bold">06</span> Design & Media
+                    </button>
+                    <button onclick="navigateTo('infrastructure')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="infrastructure">
+                        <span class="mr-2 opacity-50 font-bold">07</span> SEO & Visibility
+                    </button>
+                    <button onclick="navigateTo('timeline')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="timeline">
+                        <span class="mr-2 opacity-50 font-bold">08</span> Project Timeline
+                    </button>
+                    <button onclick="navigateTo('maintenance')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="maintenance">
+                        <span class="mr-2 opacity-50 font-bold">09</span> Support & Training
+                    </button>
+                    <button onclick="navigateTo('agreement')" class="nav-link w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-all" data-page="agreement">
+                        <span class="mr-2 opacity-50 font-bold">10</span> Terms & Budget
+                    </button>
+                </nav>
+
+                <div class="mt-12 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <div class="flex justify-between items-end mb-3">
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Progress</div>
+                        <div class="text-lg font-black text-blue-600 leading-none" id="progressText">0%</div>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                        <div id="progressBar" class="h-full bg-blue-600 transition-all duration-1000 ease-out" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 lg:p-12 h-screen overflow-y-auto">
+            <div class="max-w-3xl mx-auto pb-24">
+                <form id="masterForm">
+                    
+                    <!-- 1. BRAND IDENTITY (Expanded) -->
+                    <div id="page-brand" class="page-content active">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Brand Identity</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Help us understand the heart of your business.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label for="fullName" class="text-xs font-black text-slate-500 uppercase tracking-wider">Full Name</label>
+                                    <input type="text" id="fullName" name="fullName" required placeholder="Jane Smith" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none transition-all">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="email" class="text-xs font-black text-slate-500 uppercase tracking-wider">Email Address</label>
+                                    <input type="email" id="email" name="email" required placeholder="jane@company.com" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="phone" class="text-xs font-black text-slate-500 uppercase tracking-wider">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="company" class="text-xs font-black text-slate-500 uppercase tracking-wider">Company Name</label>
+                                    <input type="text" id="company" name="company" required placeholder="Acme Logistics" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                                <div class="space-y-2 md:col-span-2">
+                                    <label for="currentUrl" class="text-xs font-black text-slate-500 uppercase tracking-wider">Current Website URL (if any)</label>
+                                    <input type="url" id="currentUrl" name="currentUrl" placeholder="https://www.example.com" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="desc" class="text-xs font-black text-slate-500 uppercase tracking-wider">Business Mission</label>
+                                <textarea id="desc" name="desc" rows="3" placeholder="Briefly describe what your business does..." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none"></textarea>
+                            </div>
+                            <div class="pt-6 flex justify-end">
+                                <button type="button" onclick="navigateTo('audience')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all transform hover:-translate-y-1 active:scale-95">Next Step</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. AUDIENCE & MARKET (NEW) -->
+                    <div id="page-audience" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Audience & Market</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Who are we building this for?</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="space-y-2">
+                                <label for="targetAudience" class="text-xs font-black text-slate-500 uppercase tracking-wider">Ideal Customer Persona</label>
+                                <textarea id="targetAudience" name="targetAudience" rows="3" placeholder="Describe your ideal visitor (age, profession, pain points)..." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none"></textarea>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="competitors" class="text-xs font-black text-slate-500 uppercase tracking-wider">Top 3 Competitors</label>
+                                <input type="text" id="competitors" name="competitors" placeholder="Competitor A, Competitor B..." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="marketDifferentiator" class="text-xs font-black text-slate-500 uppercase tracking-wider">Unique Selling Point</label>
+                                <textarea id="marketDifferentiator" name="marketDifferentiator" rows="2" placeholder="Why would a customer choose you over a competitor?" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none"></textarea>
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('brand')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600 transition-colors">Previous</button>
+                                <button type="button" onclick="navigateTo('strategy')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all transform hover:-translate-y-1">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. STRATEGY & GOALS -->
+                    <div id="page-strategy" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Strategy & Goals</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Defining the primary purpose of your site.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="space-y-2">
+                                <label for="goal" class="text-xs font-black text-slate-500 uppercase tracking-wider">Primary Success Metric</label>
+                                <select id="goal" name="goal" class="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-white outline-none">
+                                    <option value="ecommerce">Increase Direct Online Sales</option>
+                                    <option value="lead-gen">Generate More Inbound Leads</option>
+                                    <option value="brand">Improve Brand Authority/Trust</option>
+                                    <option value="hiring">Attract Top Talent/Hiring</option>
+                                    <option value="info">Streamline Customer Support</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="cta" class="text-xs font-black text-slate-500 uppercase tracking-wider">Primary Call to Action (CTA)</label>
+                                <input type="text" id="cta" name="cta" placeholder="e.g., 'Book a Demo' or 'Shop the Collection'" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('audience')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600 transition-colors">Previous</button>
+                                <button type="button" onclick="navigateTo('scope')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all transform hover:-translate-y-1">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. DETAILED SCOPE (Expanded) -->
+                    <div id="page-scope" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Detailed Scope</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Technical requirements and core features.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-10">
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Functionality</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label class="flex items-center p-5 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all group">
+                                        <input type="checkbox" name="f_ecommerce" class="w-5 h-5 text-blue-600 border-slate-300 rounded">
+                                        <span class="ml-4 text-sm font-semibold text-slate-600">E-commerce / Checkout</span>
+                                    </label>
+                                    <label class="flex items-center p-5 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all group">
+                                        <input type="checkbox" name="f_booking" class="w-5 h-5 text-blue-600 border-slate-300 rounded">
+                                        <span class="ml-4 text-sm font-semibold text-slate-600">Booking / Scheduling</span>
+                                    </label>
+                                    <label class="flex items-center p-5 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all group">
+                                        <input type="checkbox" name="f_search" class="w-5 h-5 text-blue-600 border-slate-300 rounded">
+                                        <span class="ml-4 text-sm font-semibold text-slate-600">Advanced Site Search</span>
+                                    </label>
+                                    <label class="flex items-center p-5 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all group">
+                                        <input type="checkbox" name="f_portal" class="w-5 h-5 text-blue-600 border-slate-300 rounded">
+                                        <span class="ml-4 text-sm font-semibold text-slate-600">User Dashboard / Login</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="customFeatures" class="text-xs font-black text-slate-500 uppercase tracking-wider">Any unique custom features?</label>
+                                <textarea id="customFeatures" name="customFeatures" rows="2" placeholder="Calculators, map integrations, etc." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none"></textarea>
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('strategy')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Previous</button>
+                                <button type="button" onclick="navigateTo('tech')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all transform hover:-translate-y-1">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. TECHNICAL SETUP -->
+                    <div id="page-tech" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Technical Setup</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Connecting your digital ecosystem.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label for="crm" class="text-xs font-black text-slate-500 uppercase tracking-wider">CRM Platform</label>
+                                    <input type="text" id="crm" name="crm" placeholder="HubSpot, Salesforce, etc." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="payments" class="text-xs font-black text-slate-500 uppercase tracking-wider">Payment Processor</label>
+                                    <input type="text" id="payments" name="payments" placeholder="Stripe, PayPal, Razorpay" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                                <div class="space-y-2 md:col-span-2">
+                                    <label for="domainHost" class="text-xs font-black text-slate-500 uppercase tracking-wider">Existing Hosting/Domain Access</label>
+                                    <input type="text" id="domainHost" name="domainHost" placeholder="GoDaddy, Bluehost, AWS..." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('scope')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Previous</button>
+                                <button type="button" onclick="navigateTo('design')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold">Next: Design</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. DESIGN & MEDIA (Expanded) -->
+                    <div id="page-design" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Design & Media</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Visual direction and brand assets.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="space-y-2">
+                                <label for="designStyle" class="text-xs font-black text-slate-500 uppercase tracking-wider">Style Preference</label>
+                                <select id="designStyle" name="designStyle" class="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-white outline-none">
+                                    <option value="minimalist">Minimalist & Clean</option>
+                                    <option value="luxury">Luxury & High-End</option>
+                                    <option value="bold">Bold & Vibrant</option>
+                                    <option value="tech">Modern SaaS / Tech</option>
+                                </select>
+                            </div>
+                            <div class="space-y-4">
+                                <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Asset Readiness</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label class="flex items-center p-4 border border-slate-100 rounded-2xl">
+                                        <input type="checkbox" name="has_logo" class="w-5 h-5 text-blue-600">
+                                        <span class="ml-4 text-sm font-semibold">I have a high-res Logo</span>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-slate-100 rounded-2xl">
+                                        <input type="checkbox" name="has_copy" class="w-5 h-5 text-blue-600">
+                                        <span class="ml-4 text-sm font-semibold">I have website Copywriting</span>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-slate-100 rounded-2xl">
+                                        <input type="checkbox" name="has_photos" class="w-5 h-5 text-blue-600">
+                                        <span class="ml-4 text-sm font-semibold">I have Brand Photography</span>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-slate-100 rounded-2xl">
+                                        <input type="checkbox" name="need_branding" class="w-5 h-5 text-blue-600">
+                                        <span class="ml-4 text-sm font-semibold">I need new Logo/Branding</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('tech')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Previous</button>
+                                <button type="button" onclick="navigateTo('infrastructure')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold">Next: SEO</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. SEO & VISIBILITY -->
+                    <div id="page-infrastructure" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Visibility</h2>
+                            <p class="text-slate-500 mt-3 text-lg">SEO foundation and technical setup.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="space-y-2">
+                                <label for="keywords" class="text-xs font-black text-slate-500 uppercase tracking-wider">Target Keywords (separated by commas)</label>
+                                <input type="text" id="keywords" name="keywords" placeholder="web design mumbai, real estate agency dubai, etc." class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="socialLinks" class="text-xs font-black text-slate-500 uppercase tracking-wider">Social Media Handles</label>
+                                <input type="text" id="socialLinks" name="socialLinks" placeholder="LinkedIn, Instagram, Twitter URLs" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('design')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Previous</button>
+                                <button type="button" onclick="navigateTo('timeline')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold">Next: Timeline</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. PROJECT TIMELINE (NEW) -->
+                    <div id="page-timeline" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Timeline</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Planning for a successful launch.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label for="startDate" class="text-xs font-black text-slate-500 uppercase tracking-wider">Ideal Start Date</label>
+                                    <input type="date" id="startDate" name="startDate" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="launchDate" class="text-xs font-black text-slate-500 uppercase tracking-wider">Target Launch Date</label>
+                                    <input type="date" id="launchDate" name="launchDate" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="decisionMaker" class="text-xs font-black text-slate-500 uppercase tracking-wider">Primary Decision Maker</label>
+                                <input type="text" id="decisionMaker" name="decisionMaker" placeholder="Who provides final sign-off?" class="w-full px-5 py-4 border border-slate-200 rounded-2xl outline-none">
+                            </div>
+                            <div class="flex justify-between pt-6">
+                                <button type="button" onclick="navigateTo('infrastructure')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Previous</button>
+                                <button type="button" onclick="navigateTo('maintenance')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. MAINTENANCE & TRAINING -->
+                    <div id="page-maintenance" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Support</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Post-launch expectations.</p>
+                        </div>
+                        <div class="bg-white p-12 lg:p-16 rounded-3xl shadow-sm border border-slate-200 text-center">
+                            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Our Launch Warranty</h3>
+                            <p class="text-slate-600 max-w-sm mx-auto mb-10 leading-relaxed italic">"Every project includes 30 days of free bug-fixing, security monitoring, and a 1-hour CMS walkthrough for your team."</p>
+                            <div class="flex justify-between pt-6 border-t border-slate-100">
+                                <button type="button" onclick="navigateTo('timeline')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Previous</button>
+                                <button type="button" onclick="navigateTo('agreement')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold">Final Step: Terms</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 10. TERMS & BUDGET -->
+                    <div id="page-agreement" class="page-content">
+                        <div class="mb-10">
+                            <h2 class="text-4xl font-black text-slate-900 tracking-tight">Terms & Budget</h2>
+                            <p class="text-slate-500 mt-3 text-lg">Finalizing the project brief.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+                            <div class="space-y-2">
+                                <label for="budgetRange" class="text-xs font-black text-slate-500 uppercase tracking-wider">Investment Level (INR)</label>
+                                <select id="budgetRange" name="budgetRange" class="w-full px-5 py-4 border border-slate-200 rounded-2xl bg-white outline-none">
+                                    <option value="50-100k">₹50,000 - ₹1,00,000</option>
+                                    <option value="100-250k">₹1,00,000 - ₹2,50,000</option>
+                                    <option value="250-500k">₹2,50,000 - ₹5,00,000</option>
+                                    <option value="500k+">₹5,00,000+</option>
+                                </select>
+                            </div>
+                            <label class="flex items-start gap-4 cursor-pointer p-6 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-blue-50 hover:border-blue-100 transition-all">
+                                <input type="checkbox" required class="w-6 h-6 rounded text-blue-600 mt-0.5 border-slate-300">
+                                <span class="text-sm font-semibold text-slate-700">I confirm that I am authorized to initiate this project and agree to the payment milestones outlined in the proposal.</span>
+                            </label>
+                            <div class="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10">
+                                <button type="button" onclick="navigateTo('maintenance')" class="px-6 py-4 text-slate-400 font-bold hover:text-slate-600">Back</button>
+                                <button type="submit" class="w-full sm:w-auto bg-green-600 text-white px-16 py-5 rounded-2xl font-black text-lg hover:bg-green-700 shadow-2xl shadow-green-100 transition-all transform hover:-translate-y-1 active:scale-95">Submit Intake Form</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- SUCCESS SCREEN -->
+                <div id="successScreen" class="hidden py-24 text-center">
+                    <div class="w-32 h-32 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-10 shadow-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2 class="text-5xl font-black text-slate-900 mb-4 tracking-tight">Application Sent</h2>
+                    <p class="text-xl text-slate-500 max-w-lg mx-auto mb-12">Your project brief has been logged. Our strategy team will review the details and reach out within 48 hours for a discovery call.</p>
+                    <button onclick="location.reload()" class="bg-slate-900 text-white px-12 py-5 rounded-2xl font-black hover:bg-slate-800 transition-all transform hover:-translate-y-1">Start New Form</button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+    <script>
+        const pages = ['brand', 'audience', 'strategy', 'scope', 'tech', 'design', 'infrastructure', 'timeline', 'maintenance', 'agreement'];
+        
+        function navigateTo(pageId) {
+            // Page handling
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) targetPage.classList.add('active');
+
+            // Nav handling
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('data-page') === pageId) link.classList.add('active');
+            });
+
+            // Progress tracking
+            const index = pages.indexOf(pageId);
+            const progress = ((index + 1) / pages.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressText').innerText = `${Math.round(progress)}%`;
+            
+            // Mobile UI cleanup
+            closeSidebar();
+            
+            // Scroll to top of main content
+            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.add('hidden');
+        }
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.remove('hidden');
+        });
+
+        document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+
+        document.getElementById('masterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('masterForm').classList.add('hidden');
+            document.getElementById('successScreen').classList.remove('hidden');
+            document.getElementById('sidebar').style.opacity = '0.5';
+            document.getElementById('sidebar').style.pointerEvents = 'none';
+        });
+
+        // Initialize at start
+        window.onload = () => {
+            navigateTo('brand');
+        };
+    </script>
+</body>
+</html>
